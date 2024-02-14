@@ -21,6 +21,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'image',
     ];
 
     /**
@@ -50,8 +51,18 @@ class User extends Authenticatable
                 $query->where('email',$search);
                 $query->orWhere('name','LIKE',"%{$search}%");
             }
-        })->get();
+        })->with(['comments'])->paginate(2);
 
         return $users;
+    }
+
+    /**
+     * Get all of the comments for the User
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
     }
 }
