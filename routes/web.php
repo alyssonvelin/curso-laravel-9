@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\{
+    TesteController,
     UserController
 };
 //use App\Http\Controllers\ProfileController;
@@ -18,6 +19,13 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
+Route::get('/testes',[TesteController::class,'index'])->name('testes.index');
+Route::get('/testes/create',[TesteController::class,'create'])->name('testes.create');
+Route::post('/testes',[TesteController::class,'store'])->name('testes.store');
+Route::get('/testes/{id}',[TesteController::class,'show'])->name('testes.show');
+Route::get('/testes/{id}/edit',[TesteController::class,'edit'])->name('testes.edit');
+Route::put('/testes/{id}',[TesteController::class,'update'])->name('testes.update');
+Route::delete('/testes/{id}',[TesteController::class,'destroy'])->name('testes.destroy');
 
 Route::middleware(['auth'])->group(function(){
     Route::get('/users/{id}/comments/create', [CommentController::class, 'create'])->name('comments.create');

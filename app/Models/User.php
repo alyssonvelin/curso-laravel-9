@@ -56,6 +56,17 @@ class User extends Authenticatable
         return $users;
     }
 
+    public function getTestes(string|null $search=null)
+    {
+        $users = $this->where(function($query) use ($search){
+            if($search){
+                $query->where('email',$search);
+                $query->orWhere('name','LIKE',"%{$search}%");
+            }
+        })->get();
+        return $users;
+    }
+
     /**
      * Get all of the comments for the User
      *
